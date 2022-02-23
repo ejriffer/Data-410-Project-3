@@ -69,5 +69,18 @@ Thus, the gradient boosting model:
 ![CodeCogsEqn-3](https://user-images.githubusercontent.com/74326062/155410493-827f1d97-7a27-4803-bb59-1cc49089fce4.svg)
 
  It is likely that this model is more accurate than **F** the simple lowess output.
+ 
+The code below shows how to implement a multivariate gradient boosted lowess function. It uses the regular lowess function showed above.
 
+```
+def boosted_lwr(X, y, xnew, kern, tau, intercept):
+  # first we need decision trees
+  # for training the boosted method we use X and y
+  Fx = lw_reg(X,y,X,kern,tau,intercept) 
+  new_y = y - Fx
+  tree_model = dtr(max_depth = 3, random_state = 123)
+  tree_model.fit(X,new_y)
+  output = tree_model.predict(xnew) + lw_reg(X,y,xnew,kern,tau,intercept)
+  return output
+```
 ## Extreme Gradient Boosting (XGboost)
