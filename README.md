@@ -64,7 +64,10 @@ One technique to improve upon multivariate lowess regressions is called gradient
 
 ![CodeCogsEqn-2](https://user-images.githubusercontent.com/74326062/155410125-b4835286-4c4a-46c9-984c-ed3ad438f4da.svg)
 
-Thus, the gradient boosting model is **F** (our old model) + *h*. It is likely that this model is more accurate than **F** the simple lowess output. 
+Thus, the gradient boosting model:
 
+![CodeCogsEqn-3](https://user-images.githubusercontent.com/74326062/155410493-827f1d97-7a27-4803-bb59-1cc49089fce4.svg)
+
+ It is likely that this model is more accurate than **F** the simple lowess output.
 
 ## Extreme Gradient Boosting (XGboost)
