@@ -5,9 +5,9 @@ Multivariate models are very similar to univariate models but they intake multip
 
 ![CodeCogsEqn](https://user-images.githubusercontent.com/74326062/155409144-c32228fe-e5ef-4099-ba03-6f41b86da4c4.svg)
 
-which is stating that the expected value of the output variable *y* given certain input *x* variables is about equal to the model **F** with the same *x* input variables. 
+which is stating that the expected value of the output variable *y* given certain input *x* variables is about equal to the model **F** with the same *x* input variables.
 
-
+One of the most important aspects of multivariate models is variable selection. We want the model to properly weight the input *x* variables so that the more important variables have a bigger impact on the output *y* variable. 
 
 ## Gradient Boosting
 
