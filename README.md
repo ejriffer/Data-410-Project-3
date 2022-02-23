@@ -60,6 +60,11 @@ def lw_reg(X, y, xnew, kern, tau, intercept):
 ```
 
 ## Gradient Boosting
+One technique to improve upon multivariate lowess regressions is called gradient boosting. In order to improve the model **F** we can train a decision tree where the output is:
+
+![CodeCogsEqn-2](https://user-images.githubusercontent.com/74326062/155410125-b4835286-4c4a-46c9-984c-ed3ad438f4da.svg)
+
+Thus, the gradient boosting model is **F** (our old model) + *h*. It is likely that this model is more accurate than **F** the simple lowess output. 
 
 
 ## Extreme Gradient Boosting (XGboost)
