@@ -7,9 +7,13 @@ Multivariate models are very similar to univariate models but they intake multip
 
 which is stating that the expected value of the output variable *y* given certain input *x* variables is about equal to the model **F** with the same *x* input variables.
 
-One of the most important aspects of multivariate models is variable selection. We want the model to properly weight the input *x* variables so that the more important variables have a bigger impact on the output *y* variable. 
+One of the most important aspects of multivariate models is variable selection. We want the model to properly weight the input *x* variables so that the more important variables have a bigger impact on the output *y* variable. In the case of multivariate regression we have that: 
 
-**more about varibale selection here**
+![CodeCogsEqn-4](https://user-images.githubusercontent.com/74326062/155435647-41993035-a9f6-462c-9d3d-b8ad068aa91c.svg)
+
+We want to solve for the coefficients ![CodeCogsEqn-5](https://user-images.githubusercontent.com/74326062/155435936-041d38a1-ed13-4143-83f4-d4de00fff81c.svg) to know what the best weights for the various *x* inputs are. Solving it out we get that:
+
+![CodeCogsEqn-6](https://user-images.githubusercontent.com/74326062/155436189-218b83ec-3080-406e-b858-12f83661529a.svg)
 
 The code below shows how to implement a multivariate Tricubic Kernel and lowess function. 
 
