@@ -98,8 +98,49 @@ XGBoost has a function in the sklearn library in Python, and therefore no code n
 
 ```
 import xgboost as xgb
-model_xgb = xgb.XGBRegressor(objective ='reg:squarederror', n_estimators=100, reg_lambda=20, alpha=1, gamma=10, max_depth=3)
+model_xgb = xgb.XGBRegressor(objective ='reg:squarederror', 
+            n_estimators=100, reg_lambda=20, alpha=1, gamma=10, max_depth=3)
 ```
 
-## Comparing Models
+## Model Comparison
+All of the models described above can predict models with varying degrees of accuracy. One way to compare models is to run them all in a cross-validation loop with the same data and compare the resulting mean squared error (mse). The lower the mse the more accurate the model. Below is an example of a cross validation loop with a multivariate lowess model, a gradient boosted model, and an XGBoost model run on data from the cars.csv file. 
 
+```
+# the data
+X = cars[['ENG','CYL','WGT']].values
+y = cars['MPG'].values
+
+# initiate KFold and Standard Scaler
+kf = KFold(n_splits=10,shuffle=True,random_state=1234)
+scale = StandardScaler()
+
+mse_lwr= []
+mse_blwr = []
+mse_xgb = []
+
+# this is the Cross-Validation Loop
+for idxtrain, idxtest in kf.split(X):
+  xtrain = X[idxtrain]
+  ytrain = y[idxtrain]
+  ytest = y[idxtest]
+  xtest = X[idxtest]
+  xtrain = scale.fit_transform(xtrain)
+  xtest = scale.transform(xtest)
+  
+  # lowess model
+  yhat_lwr = lw_reg(xtrain,ytrain, xtest,Tricubic,tau=1.2,intercept=True)
+  mse_lwr.append(mse(ytest, yhat_lwr))
+  
+  # boosted gradient model
+  yhat_blwr = boosted_lwr(xtrain,ytrain, xtest,Tricubic,tau=1.2,intercept=True)
+  mse_blwr.append(mse(ytest,yhat_blwr))
+  
+  # XGBoost
+  model_xgb.fit(xtrain,ytrain)
+  yhat_xgb = model_xgb.predict(xtest)
+  mse_xgb.append(mse(ytest,yhat_xgb))
+
+print('The Cross-validated Mean Squared Error for LWR is : '+str(np.mean(mse_lwr)))
+print('The Cross-validated Mean Squared Error for BLWR is : '+str(np.mean(mse_blwr)))
+print('The Cross-validated Mean Squared Error for XGB is : '+str(np.mean(mse_xgb)))
+```
