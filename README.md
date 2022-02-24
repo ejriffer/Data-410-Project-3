@@ -88,7 +88,11 @@ def boosted_lwr(X, y, xnew, kern, tau, intercept):
   return output
 ```
 ## Extreme Gradient Boosting (XGBoost)
-Extreme gradient boosting (XGBoost) is very similar to the above gradient boosting except is uses regularization parameters to try and prevent overfitting. 
+Extreme gradient boosting (XGBoost) is a technique to improve on gradient boosting. 
+
+XGBoost uses gradient boosting on decision trees instead of the residual *h* as shown above. 
+
+XGBoost has several important hyperparameters in order to make the resulting model as accurate as possible. Lambda is a regularization paremeter that can decrease the sensitivity to individual observations and outliers. Gamma is the minimum loss required to split a leaf node of the decision tree. 
 
 ## Comparing Models
 
