@@ -152,10 +152,10 @@ print('The Cross-validated Mean Squared Error for XGB is : '+str(np.mean(mse_xgb
 ```
 Based on the code above we get the following outputs:
 
-The Cross-validated Mean Squared Error for LWR is : 16.98234862572626
+~ The Cross-validated Mean Squared Error for LWR is : 16.98234862572626
 
-The Cross-validated Mean Squared Error for BLWR is : 17.210805231749845
+~ The Cross-validated Mean Squared Error for BLWR is : 17.210805231749845
 
-The Cross-validated Mean Squared Error for XGB is : 15.929270448817453
+~ The Cross-validated Mean Squared Error for XGB is : 15.929270448817453
 
 Therefore, we can conclude that the XGBoost model is the most accurate for this data.
