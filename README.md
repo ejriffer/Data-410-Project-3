@@ -88,11 +88,18 @@ def boosted_lwr(X, y, xnew, kern, tau, intercept):
   return output
 ```
 ## Extreme Gradient Boosting (XGBoost)
-Extreme gradient boosting (XGBoost) is a technique to improve on gradient boosting. 
+Extreme gradient boosting (XGBoost) is a technique to improve on gradient boosting. XGBoost works by trying to make the decision trees as described above more accurate. We compare splits in the decision tree and make sure each split improves the accuracy of the model. If a split does not improve accuracy that split will not be made. 
 
-XGBoost uses gradient boosting on decision trees instead of the residual *h* as shown above. 
+XGBoost has several important hyperparameters in order to make the resulting model as accurate as possible. Lambda decrease the sensitivity to individual data points, and therefore outliers and Gamma is the minimum loss required to split a node of the decision trees in the model. 
 
-XGBoost has several important hyperparameters in order to make the resulting model as accurate as possible. Lambda is a regularization paremeter that can decrease the sensitivity to individual observations and outliers. Gamma is the minimum loss required to split a leaf node of the decision tree. 
+The final prediction made by XGBoost is determined by the learning rate, and the number of estimators/trees. 
+
+XGBoost has a function in the sklearn library in Python, and therefore no code needs to be written, other than importing the correct functions. Below is an example of calling the XGBoost function. 
+
+```
+import xgboost as xgb
+model_xgb = xgb.XGBRegressor(objective ='reg:squarederror', n_estimators=100, reg_lambda=20, alpha=1, gamma=10, max_depth=3)
+```
 
 ## Comparing Models
 
