@@ -103,7 +103,9 @@ model_xgb = xgb.XGBRegressor(objective ='reg:squarederror',
 ```
 
 ## Model Comparison
-All of the models described above can predict models with varying degrees of accuracy. One way to compare models is to run them all in a cross-validation loop with the same data and compare the resulting mean squared error (mse). The lower the mse the more accurate the model. Below is an example of a cross validation loop with a multivariate lowess model, a gradient boosted model, and an XGBoost model run on data from the cars.csv file. 
+All of the models described above can predict models with varying degrees of accuracy. One way to compare models is to run them all in a nested cross-validation loop with the same data and compare the resulting mean squared error (mse). Nesting the cross validation can ensure that the results are not due to a certain random split of the data. The more nesting there are the longer it will take to run, but the more accuract the mse will be. The lower the mse the more accurate the model. 
+
+Below is an example of a nested cross validation loop with a multivariate lowess model, a gradient boosted model, and an XGBoost model run on data from the cars.csv file. 
 
 ```
 # the data
@@ -118,29 +120,40 @@ mse_lwr= []
 mse_blwr = []
 mse_xgb = []
 
-# this is the Cross-Validation Loop
-for idxtrain, idxtest in kf.split(X):
-  xtrain = X[idxtrain]
-  ytrain = y[idxtrain]
-  ytest = y[idxtest]
-  xtest = X[idxtest]
-  xtrain = scale.fit_transform(xtrain)
-  xtest = scale.transform(xtest)
+# this is the Nested Cross-Validation Loop
+for i in range(2):
+  kf = KFold(n_splits = 10, shuffle = True, random_state = i)
+  # this is the Cross-Validation Loop
+    for idxtrain, idxtest in kf.split(X):
+    xtrain = X[idxtrain]
+    ytrain = y[idxtrain]
+    ytest = y[idxtest]
+    xtest = X[idxtest]
+    xtrain = scale.fit_transform(xtrain)
+    xtest = scale.transform(xtest)
   
-  # lowess model
-  yhat_lwr = lw_reg(xtrain,ytrain, xtest,Tricubic,tau=1.2,intercept=True)
-  mse_lwr.append(mse(ytest, yhat_lwr))
+    # lowess model
+    yhat_lwr = lw_reg(xtrain,ytrain, xtest,Tricubic,tau=1.2,intercept=True)
+    mse_lwr.append(mse(ytest, yhat_lwr))
   
-  # boosted gradient model
-  yhat_blwr = boosted_lwr(xtrain,ytrain, xtest,Tricubic,tau=1.2,intercept=True)
-  mse_blwr.append(mse(ytest,yhat_blwr))
+    # boosted gradient model
+    yhat_blwr = boosted_lwr(xtrain,ytrain, xtest,Tricubic,tau=1.2,intercept=True)
+    mse_blwr.append(mse(ytest,yhat_blwr))
   
   # XGBoost
-  model_xgb.fit(xtrain,ytrain)
-  yhat_xgb = model_xgb.predict(xtest)
-  mse_xgb.append(mse(ytest,yhat_xgb))
+    model_xgb = xgb.XGBRegressor(objective='reg:squarederror', n_estimators=100,                           reg_lambda=20, alpha=1, gamma=10, max_depth=3)
+     model_xgb.fit(xtrain,ytrain)
+    yhat_xgb = model_xgb.predict(xtest)
+    mse_xgb.append(mse(ytest,yhat_xgb))
 
 print('The Cross-validated Mean Squared Error for LWR is : '+str(np.mean(mse_lwr)))
 print('The Cross-validated Mean Squared Error for BLWR is : '+str(np.mean(mse_blwr)))
 print('The Cross-validated Mean Squared Error for XGB is : '+str(np.mean(mse_xgb)))
 ```
+Based on the code above we get the following outputs:
+
+The Cross-validated Mean Squared Error for LWR is : 16.98234862572626
+The Cross-validated Mean Squared Error for BLWR is : 17.210805231749845
+The Cross-validated Mean Squared Error for XGB is : 15.929270448817453
+
+Therefore, we can conclude that the XGBoost model is the most accurate for this data.
