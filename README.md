@@ -141,7 +141,7 @@ for i in range(2):
     mse_blwr.append(mse(ytest,yhat_blwr))
   
   # XGBoost
-    model_xgb = xgb.XGBRegressor(objective='reg:squarederror', n_estimators=100,                           reg_lambda=20, alpha=1, gamma=10, max_depth=3)
+    model_xgb = xgb.XGBRegressor(objective='reg:squarederror', n_estimators=100, reg_lambda=20, alpha=1, gamma=10, max_depth=3)
      model_xgb.fit(xtrain,ytrain)
     yhat_xgb = model_xgb.predict(xtest)
     mse_xgb.append(mse(ytest,yhat_xgb))
