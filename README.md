@@ -159,3 +159,16 @@ Based on the code above we get the following outputs:
 ~ The Cross-validated Mean Squared Error for XGB is : 15.929270448817453
 
 Therefore, we can conclude that the XGBoost model is the most accurate for this data.
+
+After the nested cross validation loop was run a Q-Q plot was created with the residuals in order to see if they were normally distributed. The more normally distributed the residuals are the closer the line will be to *y = x*. 
+
+LWR Q-Q Plot:
+
+<img width="387" alt="Screen Shot 2022-02-26 at 1 55 07 PM" src="https://user-images.githubusercontent.com/74326062/155855855-ff4379f6-ef80-4576-bae6-546518f3a2f6.png">
+
+BLWR Q-Q Plot:
+
+<img width="387" alt="Screen Shot 2022-02-26 at 2 04 07 PM" src="https://user-images.githubusercontent.com/74326062/155855865-4cc26d9c-beef-4fff-ba37-d2c56ee2189c.png">
+
+XGBoost Q-Q Plot:
+<img width="387" alt="Screen Shot 2022-02-26 at 2 04 27 PM" src="https://user-images.githubusercontent.com/74326062/155855877-812dcd87-a1a8-4f7e-a851-3d4dbf0983d7.png">
