@@ -171,4 +171,7 @@ BLWR Q-Q Plot:
 <img width="387" alt="Screen Shot 2022-02-26 at 2 04 07 PM" src="https://user-images.githubusercontent.com/74326062/155855865-4cc26d9c-beef-4fff-ba37-d2c56ee2189c.png">
 
 XGBoost Q-Q Plot:
+
 <img width="387" alt="Screen Shot 2022-02-26 at 2 04 27 PM" src="https://user-images.githubusercontent.com/74326062/155855877-812dcd87-a1a8-4f7e-a851-3d4dbf0983d7.png">
+
+All three of these graphs show that the residuals do not follow a noraml distribution. The general trend of the points indicates that the residuals are more highly dispersed that a normal distribution. 
