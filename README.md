@@ -72,9 +72,9 @@ Thus, the gradient boosting model outputs:
 
 ![CodeCogsEqn-3](https://user-images.githubusercontent.com/74326062/155410493-827f1d97-7a27-4803-bb59-1cc49089fce4.svg)
 
- It is likely that this model is more accurate than **F** the simple lowess output.
+ It is likely that this model is more accurate than **F**, the simple lowess output.
  
-The code below shows how to implement a multivariate gradient boosted lowess function. It uses the regular lowess function showed above.
+The code below shows how to implement a multivariate gradient boosted lowess function. It uses the lw_reg function showed above.
 
 ```
 def boosted_lwr(X, y, xnew, kern, tau, intercept):
@@ -90,7 +90,7 @@ def boosted_lwr(X, y, xnew, kern, tau, intercept):
 ## Extreme Gradient Boosting (XGBoost)
 Extreme gradient boosting (XGBoost) is a technique to improve on gradient boosting. XGBoost works by trying to make the decision trees as described above more accurate. We compare splits in the decision tree and make sure each split improves the accuracy of the model. If a split does not improve accuracy that split will not be made. 
 
-XGBoost has several important hyperparameters in order to make the resulting model as accurate as possible. Lambda decrease the sensitivity to individual data points, and therefore outliers and Gamma is the minimum loss required to split a node of the decision trees in the model. 
+XGBoost has several important hyperparameters in order to make the resulting model as accurate as possible. *Lambda* decrease the sensitivity to individual data points, and therefore outliers and *Gamma* is the minimum loss required to split a node of the decision trees in the model. 
 
 The final prediction made by XGBoost is determined by the learning rate, and the number of estimators/trees. 
 
@@ -112,10 +112,10 @@ Below is an example of a nested cross validation loop with a multivariate lowess
 X = cars[['ENG','CYL','WGT']].values
 y = cars['MPG'].values
 
-# initiate KFold and Standard Scaler
-kf = KFold(n_splits=10,shuffle=True,random_state=1234)
+# initiate Standard Scaler
 scale = StandardScaler()
 
+# lists to catch outputed mse
 mse_lwr= []
 mse_blwr = []
 mse_xgb = []
@@ -154,7 +154,7 @@ Based on the code above we get the following outputs:
 
 ~ The Cross-validated Mean Squared Error for LWR is : 16.98234862572626
 
-~ The Cross-validated Mean Squared Error for BLWR is : 17.210805231749845
+~ The Cross-validated Mean Squared Error for BLWR is : 17.21080523174984
 
 ~ The Cross-validated Mean Squared Error for XGB is : 15.929270448817453
 
